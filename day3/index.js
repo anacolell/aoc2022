@@ -8,6 +8,8 @@ function hasRepeats(str) {
   return /(.).*\1/.test(str);
 }
 
+//part 1
+
 const alphabetLower = "abcdefghijklmnopqrstuvwxyz".split("");
 let alphabetLowerObj = {};
 alphabetLower.map((letter, index) => {
@@ -41,7 +43,27 @@ function calculateFinalSum(itemsArray) {
     finalSum +=
       alphabetLowerObj[repeatedLetter] || alphabetUpperObj[repeatedLetter];
   }
+  console.log(finalSum);
   return finalSum;
 }
 
-console.log(calculateFinalSum(items));
+calculateFinalSum(items);
+
+//part 2
+
+function calculateFinalSum3() {
+  let finalSum = 0;
+  for (let i = 0; i < items.length; i += 3) {
+    const rucksacks = [[...items[i]], [...items[i + 1]], [...items[i + 2]]];
+    let set = new Set(rucksacks[0]);
+    let repeatedLetters = rucksacks[1].filter((item) => set.has(item));
+    set = new Set(repeatedLetters);
+    repeatedLetters = rucksacks[2].filter((item) => set.has(item));
+    set = [...new Set(repeatedLetters)];
+    finalSum += alphabetLowerObj[set] || alphabetUpperObj[set];
+  }
+  console.log(finalSum);
+  return finalSum;
+}
+
+calculateFinalSum3(items);
